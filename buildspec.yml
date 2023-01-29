@@ -12,7 +12,7 @@ version : 0.2
           - cd lib
           - zip -r9 ../deployment_package.zip .
           - cd ..
-          - zip -g deployment_package.zip lambda_function.py
+          - zip -g deployment_package.zip youtube-downloader.py
     post-build:
       commands:
         - echo "updating lambda function"
