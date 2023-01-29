@@ -3,24 +3,14 @@ import sys
 from pytube import YouTube
 from pytube.exceptions import RegexMatchError
 
-previousprogress = 0
-def on_progress(stream, chunk, bytes_remaining):
-    global previousprogress
-    total_size = stream.filesize
-    bytes_downloaded = total_size - bytes_remaining
-
-    liveprogress = (int)(bytes_downloaded / total_size * 100)
-    if liveprogress > previousprogress:
-        previousprogress = liveprogress
-        os.system('cls')
-        sys.stdout.write("\r{0}% Completed".format(liveprogress))
-
 def func_folder():
     folderName = 'youtube-videos'
     return {
         'folderName':folderName,
         'folderPath':os.path.join(os.path.abspath(os.sep),folderName)
     }
+
+
 
 def pytube(videolink):
     yt = YouTube(videolink)
@@ -29,7 +19,6 @@ def pytube(videolink):
         title = yt.title+'.mp4'
         if not os.path.exists(os.path.join(folderPath.get('folderPath'),title)):
             print("Download in progresss...\n",title)
-            yt.register_on_progress_callback(on_progress)
             yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(createFolder('youtube-videos'))
             return {
                 "Download_status" : "Successfull",
