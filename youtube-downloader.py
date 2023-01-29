@@ -68,7 +68,7 @@ def createFolder(folderName):
 
 
 def main():
-    print('---pytube CLI---')
+    print('---Youtube Downloader CLI---')
     link = input("Enter the youtube video link: ")
     try:
          download_status = pytube(link)
