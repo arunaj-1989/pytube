@@ -16,27 +16,28 @@ def pytube(videolink):
     yt = YouTube(videolink)
     try:
         folderPath = func_folder()
-        title = yt.title+'.mp4'
-        if not os.path.exists(os.path.join(folderPath.get('folderPath'),title)):
-            print("Download in progresss...\n",title)
+        _title = yt.title+".mp4"
+        if not os.path.exists(os.path.join(folderPath.get('folderPath'),_title)):
+            print("Download in progresss...\n",_title)
             yt.streams.filter(progressive=True, file_extension='mp4').order_by('resolution').desc().first().download(createFolder('youtube-videos'))
             return {
                 "Download_status" : "Successfull",
-                "video_title": title
+                "video_title": _title
             }
         else:
             return {
                 "Download_status" : "Ignored",
-                "video_title": title
+                "video_title": _title
             }
 
-    except:
-        if FileExistsError:
+    except Exception as err:
+        if Exception:
+            print(err)
             folderpath = func_folder()
             reason = "File Exists at location :"+ folderpath.get('folderPath')
             return {
                 "Download_status" : "Failed!",
-                "video_title": title,
+                "video_title": _title,
                 "Reason":""
             }
         else:
@@ -68,8 +69,9 @@ def main():
          else:
              print("File already exists at :", folderPath.get('folderPath'))
          input()
-    except:
-         if RegexMatchError:
+    except Exception as err:
+        print(err)
+        if RegexMatchError:
              print("invalid url!")
 
 
